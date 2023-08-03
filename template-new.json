@@ -163,7 +163,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max(increase(process_cpu_seconds_total{service=~\"#service_name#-be\",env=\"$env\",cid=~\"$cid\"}[60s]) / 60)",
+            "expr": "max(increase(process_cpu_seconds_total{service=~\"#service_name#\",env=\"$env\",cid=~\"$cid\"}[60s]) / 60)",
             "instant": true,
             "interval": "",
             "legendFormat": "",
@@ -229,7 +229,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max(go_memstats_sys_bytes{env=\"$env\",service=~\"#service_name#-be\",cid=~\"$cid\"})",
+            "expr": "max(go_memstats_sys_bytes{env=\"$env\",service=~\"#service_name#\",cid=~\"$cid\"})",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -296,7 +296,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max(go_goroutines{env=\"$env\",service=\"#service_name#-be\",cid=~\"$cid\"})",
+            "expr": "max(go_goroutines{env=\"$env\",service=\"#service_name#\",cid=~\"$cid\"})",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -364,7 +364,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "min(increase(idgame_handled_total{service=~\"#service_name#-be\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m]))",
+            "expr": "min(increase(idgame_handled_total{service=~\"#service_name#\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m]))",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -431,7 +431,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "sum(rate(idgame_handled_total{service=~\"#service_name#-be\",env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m])) ",
+            "expr": "sum(rate(idgame_handled_total{service=~\"#service_name#\",env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m])) ",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -565,7 +565,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "sum(increase(idgame_handled_total{service=~\"#service_name#-be\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[$__range]))",
+            "expr": "sum(increase(idgame_handled_total{service=~\"#service_name#\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[$__range]))",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -632,7 +632,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "histogram_quantile(0.99, sum(rate(idgame_handled_seconds_bucket{service=~\"#service_name#-be\",env=~\"$env\",cid=~\"$cid\", path!~\".*ping.*\", region!=\"xx\"}[$__range])) by (le))",
+            "expr": "histogram_quantile(0.99, sum(rate(idgame_handled_seconds_bucket{service=~\"#service_name#\",env=~\"$env\",cid=~\"$cid\", path!~\".*ping.*\", region!=\"xx\"}[$__range])) by (le))",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -1038,7 +1038,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method)",
+            "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method)",
             "interval": "",
             "legendFormat": "{{path}}-{{method}}",
             "refId": "A"
@@ -1107,7 +1107,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_seconds_sum{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)",
+            "expr": "sum(increase(idgame_handled_seconds_sum{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)",
             "instant": false,
             "interval": "",
             "legendFormat": "{{path}}-{{method}}",
@@ -1232,7 +1232,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method, status_code)",
+            "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method, status_code)",
             "interval": "",
             "legendFormat": "{{path}}-{{method}}-{{status_code}}",
             "refId": "A"
@@ -1327,7 +1327,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
+            "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
             "instant": false,
             "interval": "",
             "legendFormat": "p95: {{path}}-{{method}}",
@@ -1340,7 +1340,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
+            "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
             "hide": false,
             "instant": false,
             "interval": "",
@@ -1354,7 +1354,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
+            "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
             "hide": false,
             "instant": false,
             "interval": "",
@@ -1758,7 +1758,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": true,
-            "expr": "sum(container_memory_rss{pod=~\"#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*-be.*\"} ) by (pod) / sum(kube_pod_container_resource_limits_memory_bytes{pod=~\"#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*-be.*\"}) by (pod) * 100",
+            "expr": "sum(container_memory_rss{pod=~\"#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*.*\"} ) by (pod) / sum(kube_pod_container_resource_limits_memory_bytes{pod=~\"#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*.*\"}) by (pod) * 100",
             "interval": "",
             "legendFormat": "{{ pod_name }}",
             "refId": "A"
@@ -3110,7 +3110,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(idgame_handled_total{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method)",
+                "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method)",
                 "interval": "",
                 "legendFormat": "{{path}}-{{method}}",
                 "refId": "A"
@@ -3177,7 +3177,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(idgame_handled_seconds_sum{service=\"#service_name#-be\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=\"#service_name#-be\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)",
+                "expr": "sum(increase(idgame_handled_seconds_sum{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "{{path}}-{{method}}",
@@ -3301,7 +3301,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(idgame_handled_total{service=\"#service_name#-be\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method, status_code)",
+                "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method, status_code)",
                 "interval": "",
                 "legendFormat": "{{path}}-{{method}}-{{status_code}}",
                 "refId": "A"
@@ -3395,7 +3395,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#-be\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
+                "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "p95: {{path}}-{{method}}",
@@ -3408,7 +3408,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#-be\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
+                "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -3422,7 +3422,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#-be\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
+                "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
