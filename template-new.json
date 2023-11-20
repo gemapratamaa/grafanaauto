@@ -498,7 +498,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max_over_time(sum(rate(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"live\",region!=\"xx\"}[1m]))[1h:1m])",
+            "expr": "max_over_time(sum(rate(idgame_handled_total{service=~\".*#service_name#.*\",env=\"$env\",region!=\"xx\"}[1m]))[1h:1m])",
             "format": "time_series",
             "instant": true,
             "interval": "",
