@@ -81,7 +81,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": false,
-            "expr": "sum(kube_pod_container_info{container=~\"#service_name#.*\"}) by (container)",
+            "expr": "sum(kube_pod_container_info{container=~\".*#service_name#.*\"}) by (container)",
             "format": "time_series",
             "hide": true,
             "instant": true,
@@ -96,7 +96,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": true,
-            "expr": "sum(label_replace(kube_pod_status_ready{pod=~\"#service_name#-[a-z]+-$env-$cid.*\"}, \"pod_group\", \"$1\", \"pod\", \"(#service_name#-[a-z]+-$env-$cid).*\")) by (pod_group)",
+            "expr": "sum(label_replace(kube_pod_status_ready{pod=~\".*#service_name#.*-[a-z]+-$env-$cid.*\"}, \"pod_group\", \"$1\", \"pod\", \"(.*#service_name#.*-[a-z]+-$env-$cid).*\")) by (pod_group)",
             "hide": false,
             "interval": "",
             "legendFormat": "{{pod_group}}",
@@ -163,7 +163,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max(increase(process_cpu_seconds_total{service=~\"#service_name#\",env=\"$env\",cid=~\"$cid\"}[60s]) / 60)",
+            "expr": "max(increase(process_cpu_seconds_total{service=~\".*#service_name#.*\",env=\"$env\",cid=~\"$cid\"}[60s]) / 60)",
             "instant": true,
             "interval": "",
             "legendFormat": "",
@@ -229,7 +229,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max(go_memstats_sys_bytes{env=\"$env\",service=~\"#service_name#\",cid=~\"$cid\"})",
+            "expr": "max(go_memstats_sys_bytes{env=\"$env\",service=~\".*#service_name#.*\",cid=~\"$cid\"})",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -296,7 +296,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max(go_goroutines{env=\"$env\",service=\"#service_name#\",cid=~\"$cid\"})",
+            "expr": "max(go_goroutines{env=\"$env\",service=~\".*#service_name#.*\",cid=~\"$cid\"})",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -364,7 +364,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "min(increase(idgame_handled_total{service=~\"#service_name#\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m]))",
+            "expr": "min(increase(idgame_handled_total{service=~\".*#service_name#.*\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m]))",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -431,7 +431,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "sum(rate(idgame_handled_total{service=~\"#service_name#\",env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m])) ",
+            "expr": "sum(rate(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[1m])) ",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -498,7 +498,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "max_over_time(sum(rate(idgame_handled_total{service=~\"#service_name#.*\",env=~\"live\",region!=\"xx\"}[1m]))[1h:1m])",
+            "expr": "max_over_time(sum(rate(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"live\",region!=\"xx\"}[1m]))[1h:1m])",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -565,7 +565,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "sum(increase(idgame_handled_total{service=~\"#service_name#\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[$__range]))",
+            "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\", env=~\"$env\", path!~\".*ping.*\", region!=\"xx\"}[$__range]))",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -632,7 +632,7 @@
               "uid": "${datasource}"
             },
             "exemplar": false,
-            "expr": "histogram_quantile(0.99, sum(rate(idgame_handled_seconds_bucket{service=~\"#service_name#\",env=~\"$env\",cid=~\"$cid\", path!~\".*ping.*\", region!=\"xx\"}[$__range])) by (le))",
+            "expr": "histogram_quantile(0.99, sum(rate(idgame_handled_seconds_bucket{service=~\".*#service_name#.*\",env=~\"$env\",cid=~\"$cid\", path!~\".*ping.*\", region!=\"xx\"}[$__range])) by (le))",
             "format": "time_series",
             "instant": true,
             "interval": "",
@@ -813,7 +813,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=~\"#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"id|sg|br\", status_code=~\"4.*|5.*\"}[1m]))",
+            "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"id|sg|br\", status_code=~\"4.*|5.*\"}[1m]))",
             "interval": "",
             "legendFormat": "Error count",
             "refId": "A"
@@ -824,7 +824,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=~\"#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code=~\"3.*|2.*\"}[1m]))  / sum(increase(idgame_handled_total{service=~\"#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\"}[1m])) * 100\n",
+            "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code=~\"3.*|2.*\"}[1m]))  / sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\"}[1m])) * 100\n",
             "hide": false,
             "interval": "",
             "legendFormat": "Success rate (%)",
@@ -836,7 +836,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=~\"#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code=~\"4.*|5.*\"}[1m]))  / sum(increase(idgame_handled_total{service=~\"#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\"}[1m])) * 100",
+            "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code=~\"4.*|5.*\"}[1m]))  / sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\"}[1m])) * 100",
             "hide": false,
             "interval": "",
             "legendFormat": "Error rate (%)",
@@ -931,7 +931,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=~\"#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\"}[1m]))",
+            "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\"}[1m]))",
             "interval": "",
             "legendFormat": "Total request",
             "refId": "A"
@@ -1038,7 +1038,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method)",
+            "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method)",
             "interval": "",
             "legendFormat": "{{path}}-{{method}}",
             "refId": "A"
@@ -1107,7 +1107,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_seconds_sum{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)",
+            "expr": "sum(increase(idgame_handled_seconds_sum{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m]))by(path, method)",
             "instant": false,
             "interval": "",
             "legendFormat": "{{path}}-{{method}}",
@@ -1232,7 +1232,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method, status_code)",
+            "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by(path, method, status_code)",
             "interval": "",
             "legendFormat": "{{path}}-{{method}}-{{status_code}}",
             "refId": "A"
@@ -1327,7 +1327,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
+            "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
             "instant": false,
             "interval": "",
             "legendFormat": "p95: {{path}}-{{method}}",
@@ -1340,7 +1340,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
+            "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
             "hide": false,
             "instant": false,
             "interval": "",
@@ -1354,7 +1354,7 @@
               "uid": "${datasource}"
             },
             "exemplar": true,
-            "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
+            "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region!=\"xx\"}[1m])) by (le, path, method))",
             "hide": false,
             "instant": false,
             "interval": "",
@@ -1467,7 +1467,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": true,
-            "expr": "(rate(container_cpu_usage_seconds_total{pod=~\"#service_name#.*\", image!~\".*pause.*\", pod!~\".*-xx.*\"}[60s]) / max(kube_pod_container_resource_limits_cpu_cores{pod=~\"#service_name#.*\", pod!~\".*-xx-.*\"}) * 100)",
+            "expr": "(rate(container_cpu_usage_seconds_total{pod=~\".*#service_name#.*\", image!~\".*pause.*\", pod!~\".*-xx.*\"}[60s]) / max(kube_pod_container_resource_limits_cpu_cores{pod=~\".*#service_name#.*\", pod!~\".*-xx-.*\"}) * 100)",
             "interval": "",
             "legendFormat": "{{ pod }}",
             "refId": "A"
@@ -1564,7 +1564,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": true,
-            "expr": "(pod:pod_memory_usage:rate{pod_name=~\"#service_name#.*\", pod_name!~\".*-xx.*\"} / (pod:pod_memory_limit_bytes{pod_name=~\"#service_name#.*\", pod_name!~\".*-xx-.*\"} / 1024 / 1024 / 1024)) * 100",
+            "expr": "(pod:pod_memory_usage:rate{pod_name=~\".*#service_name#.*\", pod_name!~\".*-xx.*\"} / (pod:pod_memory_limit_bytes{pod_name=~\".*#service_name#.*\", pod_name!~\".*-xx-.*\"} / 1024 / 1024 / 1024)) * 100",
             "interval": "",
             "legendFormat": "{{ pod_name }}",
             "refId": "A"
@@ -1661,7 +1661,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": true,
-            "expr": "increase(kube_pod_container_status_restarts_total{pod=~\"#service_name#.*\", pod!~\".*-xx.*\"}[5m])",
+            "expr": "increase(kube_pod_container_status_restarts_total{pod=~\".*#service_name#.*\", pod!~\".*-xx.*\"}[5m])",
             "interval": "",
             "legendFormat": "{{ pod }}",
             "refId": "A"
@@ -1758,7 +1758,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": true,
-            "expr": "sum(container_memory_rss{pod=~\"#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*.*\"} ) by (pod) / sum(kube_pod_container_resource_limits_memory_bytes{pod=~\"#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*.*\"}) by (pod) * 100",
+            "expr": "sum(container_memory_rss{pod=~\".*#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*\"} ) by (pod) / sum(kube_pod_container_resource_limits_memory_bytes{pod=~\".*#service_name#.*\", pod!~\".*-xx.*\", pod!~\".*\"}) by (pod) * 100",
             "interval": "",
             "legendFormat": "{{ pod_name }}",
             "refId": "A"
@@ -1855,7 +1855,7 @@
               "uid": "${resource_data}"
             },
             "exemplar": true,
-            "expr": "kube_pod_status_ready{pod=~\"#service_name#.*\", condition=\"true\", pod!~\".*-xx-.*\"}",
+            "expr": "kube_pod_status_ready{pod=~\".*#service_name#.*\", condition=\"true\", pod!~\".*-xx-.*\"}",
             "interval": "",
             "legendFormat": "{{ pod }}",
             "refId": "A"
@@ -1956,7 +1956,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_db_latency_sum{env=~\"$env\"}[1m])) by (query) / sum(increase(id_game_#service_name#_be_db_latency_count{env=~\"$env\"}[1m])) by (query)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_db_latency_sum{env=~\"$env\"}[1m])) by (query) / sum(increase(id_game_.*#service_name#.*_be_db_latency_count{env=~\"$env\"}[1m])) by (query)",
                 "interval": "",
                 "legendFormat": "{{key}}",
                 "refId": "A"
@@ -2046,7 +2046,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.95, sum(increase(id_game_#service_name#_be_db_latency_bucket{env=~\"$env\"}[1m])) by (le, query))",
+                "expr": "histogram_quantile(0.95, sum(increase(id_game_.*#service_name#.*_be_db_latency_bucket{env=~\"$env\"}[1m])) by (le, query))",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "p95: {{query}}",
@@ -2059,7 +2059,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.75, sum(increase(id_game_#service_name#_be_db_latency_bucket{env=~\"$env\"}[1m])) by (le, query))",
+                "expr": "histogram_quantile(0.75, sum(increase(id_game_.*#service_name#.*_be_db_latency_bucket{env=~\"$env\"}[1m])) by (le, query))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -2073,7 +2073,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.50, sum(increase(id_game_#service_name#_be_db_latency_bucket{env=~\"$env\"}[1m])) by (le, query))",
+                "expr": "histogram_quantile(0.50, sum(increase(id_game_.*#service_name#.*_be_db_latency_bucket{env=~\"$env\"}[1m])) by (le, query))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -2167,7 +2167,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_cache_latency_sum{env=~\"$env\"}[1m]))by(key)/sum(increase(id_game_#service_name#_be_cache_latency_count{env=~\"$env\"}[1m]))by(key)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_cache_latency_sum{env=~\"$env\"}[1m]))by(key)/sum(increase(id_game_.*#service_name#.*_be_cache_latency_count{env=~\"$env\"}[1m]))by(key)",
                 "interval": "",
                 "legendFormat": "{{key}}",
                 "refId": "A"
@@ -2257,7 +2257,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.95, sum(increase(id_game_#service_name#_be_cache_latency_bucket{env=~\"$env\"}[1m])) by (le, key))",
+                "expr": "histogram_quantile(0.95, sum(increase(id_game_.*#service_name#.*_be_cache_latency_bucket{env=~\"$env\"}[1m])) by (le, key))",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "p95: {{key}}",
@@ -2270,7 +2270,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.75, sum(increase(id_game_#service_name#_be_cache_latency_bucket{env=~\"$env\"}[1m])) by (le, key))",
+                "expr": "histogram_quantile(0.75, sum(increase(id_game_.*#service_name#.*_be_cache_latency_bucket{env=~\"$env\"}[1m])) by (le, key))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -2284,7 +2284,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.50, sum(increase(id_game_#service_name#_cache_latency_bucket{env=~\"$env\"}[1m])) by (le, key))",
+                "expr": "histogram_quantile(0.50, sum(increase(id_game_.*#service_name#.*_cache_latency_bucket{env=~\"$env\"}[1m])) by (le, key))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -2378,7 +2378,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "(sum(increase(id_game_#service_name#_be_cache_access{env=~\"$env\", is_hit=\"1\"}[1m])) by(key) / sum(increase(id_game_#service_name#_be_cache_access{env=~\"$env\"}[1m])) by(key)) * 100 ",
+                "expr": "(sum(increase(id_game_.*#service_name#.*_be_cache_access{env=~\"$env\", is_hit=\"1\"}[1m])) by(key) / sum(increase(id_game_.*#service_name#.*_be_cache_access{env=~\"$env\"}[1m])) by(key)) * 100 ",
                 "interval": "",
                 "legendFormat": "{{key}}",
                 "refId": "A"
@@ -2468,7 +2468,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_consumer_process_status{env=~\"$env\", status=\"0\"}[1m])) by(topic, group_id)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_consumer_process_status{env=~\"$env\", status=\"0\"}[1m])) by(topic, group_id)",
                 "interval": "",
                 "legendFormat": "Success - {{topic}} - {{group_id}}",
                 "refId": "A"
@@ -2479,7 +2479,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_consumer_process_status{env=~\"$env\", status=\"1\"}[1m])) by(topic, group_id)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_consumer_process_status{env=~\"$env\", status=\"1\"}[1m])) by(topic, group_id)",
                 "hide": false,
                 "interval": "",
                 "legendFormat": "Error - {{topic}} - {{group_id}}",
@@ -2570,7 +2570,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.95, sum(increase(id_game_#service_name#_be_external_service_latency_bucket{env=~\"$env\"}[1m])) by (le, external_service, command))",
+                "expr": "histogram_quantile(0.95, sum(increase(id_game_.*#service_name#.*_be_external_service_latency_bucket{env=~\"$env\"}[1m])) by (le, external_service, command))",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "p95: {{external_service}} - {{command}}",
@@ -2583,7 +2583,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.75, sum(increase(id_game_#service_name#_be_external_service_latency_bucket{env=~\"$env\"}[1m])) by (le, external_service, command))",
+                "expr": "histogram_quantile(0.75, sum(increase(id_game_.*#service_name#.*_be_external_service_latency_bucket{env=~\"$env\"}[1m])) by (le, external_service, command))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -2597,7 +2597,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.50, sum(increase(id_game_#service_name#_be_external_service_latency_bucket{env=~\"$env\"}[1m])) by (le, external_service, command))",
+                "expr": "histogram_quantile(0.50, sum(increase(id_game_.*#service_name#.*_be_external_service_latency_bucket{env=~\"$env\"}[1m])) by (le, external_service, command))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -2691,7 +2691,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_external_service_latency_sum{env=~\"$env\"}[1m]))by(external_service, command)/sum(increase(id_game_#service_name#_be_external_service_latency_count{env=~\"$env\"}[1m]))by(external_service, command)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_external_service_latency_sum{env=~\"$env\"}[1m]))by(external_service, command)/sum(increase(id_game_.*#service_name#.*_be_external_service_latency_count{env=~\"$env\"}[1m]))by(external_service, command)",
                 "interval": "",
                 "legendFormat": "{{external_service}} - {{command}}",
                 "refId": "A"
@@ -2781,7 +2781,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_external_service_latency_count{env=~\"$env\", is_error=\"1\"}[1m])) by(external_service, command)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_external_service_latency_count{env=~\"$env\", is_error=\"1\"}[1m])) by(external_service, command)",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "{{external_service}} - {{command}}",
@@ -2873,7 +2873,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_provided_api_error{env=~\"$env\", type=\"0\"}[1m])) by(source)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_provided_api_error{env=~\"$env\", type=\"0\"}[1m])) by(source)",
                 "interval": "",
                 "legendFormat": "Bad Request - {{source}}",
                 "refId": "A"
@@ -2884,7 +2884,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_provided_api_error{env=~\"$env\", type=\"1\"}[1m])) by(source)",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_provided_api_error{env=~\"$env\", type=\"1\"}[1m])) by(source)",
                 "hide": false,
                 "interval": "",
                 "legendFormat": "Internal Error - {{source}}",
@@ -3003,7 +3003,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(id_game_#service_name#_be_ccu{env=~\"$env\", cid=~\"$cid\"}[5s]))",
+                "expr": "sum(increase(id_game_.*#service_name#.*_be_ccu{env=~\"$env\", cid=~\"$cid\"}[5s]))",
                 "interval": "",
                 "legendFormat": "Concurrent User",
                 "refId": "A"
@@ -3110,7 +3110,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method)",
+                "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method)",
                 "interval": "",
                 "legendFormat": "{{path}}-{{method}}",
                 "refId": "A"
@@ -3177,7 +3177,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(idgame_handled_seconds_sum{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)",
+                "expr": "sum(increase(idgame_handled_seconds_sum{service=~\".*#service_name#.*\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)/sum(increase(idgame_handled_seconds_count{service=~\".*#service_name#.*\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m]))by(path, method)",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "{{path}}-{{method}}",
@@ -3301,7 +3301,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "sum(increase(idgame_handled_total{service=\"#service_name#\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method, status_code)",
+                "expr": "sum(increase(idgame_handled_total{service=~\".*#service_name#.*\",env=~\"$env\", cid=~\"$cid\", tenant=~\"$tenant\", status_code!~\"200\", path!~\".*ping.*\", region=\"xx\"}[1m])) by(path, method, status_code)",
                 "interval": "",
                 "legendFormat": "{{path}}-{{method}}-{{status_code}}",
                 "refId": "A"
@@ -3395,7 +3395,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
+                "expr": "histogram_quantile(0.95, sum(increase(idgame_handled_seconds_bucket{service=~\".*#service_name#.*\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
                 "instant": false,
                 "interval": "",
                 "legendFormat": "p95: {{path}}-{{method}}",
@@ -3408,7 +3408,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
+                "expr": "histogram_quantile(0.75, sum(increase(idgame_handled_seconds_bucket{service=~\".*#service_name#.*\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -3422,7 +3422,7 @@
                   "uid": "${datasource}"
                 },
                 "exemplar": true,
-                "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=\"#service_name#\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
+                "expr": "histogram_quantile(0.50, sum(increase(idgame_handled_seconds_bucket{service=~\".*#service_name#.*\",env=~\"$env\", tenant=~\"$cid\", path!~\".*ping.*\", region=\"xx\"}[1m])) by (le, path, method))",
                 "hide": false,
                 "instant": false,
                 "interval": "",
@@ -3533,7 +3533,7 @@
                   "uid": "${resource_data}"
                 },
                 "exemplar": true,
-                "expr": "(rate(container_cpu_usage_seconds_total{pod=~\"#service_name#.*\", image!~\".*pause.*\", pod=~\".*-xx.*\"}[60s]) / max(kube_pod_container_resource_limits_cpu_cores{pod=~\"#service_name#.*\", pod=~\".*-xx.*\"}) * 100)",
+                "expr": "(rate(container_cpu_usage_seconds_total{pod=~\".*#service_name#.*\", image!~\".*pause.*\", pod=~\".*-xx.*\"}[60s]) / max(kube_pod_container_resource_limits_cpu_cores{pod=~\".*#service_name#.*\", pod=~\".*-xx.*\"}) * 100)",
                 "interval": "",
                 "legendFormat": "{{ pod }}",
                 "refId": "A"
@@ -3627,7 +3627,7 @@
                   "uid": "${resource_data}"
                 },
                 "exemplar": true,
-                "expr": "(pod:pod_memory_usage:rate{pod_name=~\"#service_name#.*\", pod_name=~\".*-xx.*\"} / (pod:pod_memory_limit_bytes{pod_name=~\"#service_name#.*\", pod_name=~\".*-xx.*\"} / 1024 / 1024 / 1024)) * 100",
+                "expr": "(pod:pod_memory_usage:rate{pod_name=~\".*#service_name#.*\", pod_name=~\".*-xx.*\"} / (pod:pod_memory_limit_bytes{pod_name=~\".*#service_name#.*\", pod_name=~\".*-xx.*\"} / 1024 / 1024 / 1024)) * 100",
                 "interval": "",
                 "legendFormat": "{{ pod_name }}",
                 "refId": "A"
@@ -3721,7 +3721,7 @@
                   "uid": "${resource_data}"
                 },
                 "exemplar": true,
-                "expr": "increase(kube_pod_container_status_restarts_total{pod=~\"#service_name#.*\", pod=~\".*-xx.*\"}[5m])",
+                "expr": "increase(kube_pod_container_status_restarts_total{pod=~\".*#service_name#.*\", pod=~\".*-xx.*\"}[5m])",
                 "interval": "",
                 "legendFormat": "{{ pod }}",
                 "refId": "A"
@@ -3817,7 +3817,7 @@
                   "uid": "${resource_data}"
                 },
                 "exemplar": true,
-                "expr": "kube_pod_status_ready{pod=~\"#service_name#.*\", condition=\"true\", pod=~\".*-xx.*\"}",
+                "expr": "kube_pod_status_ready{pod=~\".*#service_name#.*\", condition=\"true\", pod=~\".*-xx.*\"}",
                 "interval": "",
                 "legendFormat": "{{ pod }}",
                 "refId": "A"
@@ -4040,8 +4040,8 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "#service_name#: General Monitor",
-    "uid": "#service_name#",
+    "title": ".*#service_name#.*: General Monitor",
+    "uid": ".*#service_name#.*",
     "weekStart": ""
   },
   "overwrite": false
